@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import Post from '../post/entities/post.entity';
-import User from '../user/entities/user.entity';
+// import Post from '../post/entities/post.entity';
+// import User from '../user/entities/user.entity';
 
 @Module({
   imports: [
@@ -16,7 +16,8 @@ import User from '../user/entities/user.entity';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
-        entities: [Post, User],
+        autoLoadEntities: true,
+        // entities: [Post, User],
         synchronize: true,
       }),
     }),
