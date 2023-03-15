@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm'
-import ProductEntity from '../entities/product.entity';
-import CategoryEntity from '../entities/category.entity';
+// import ProductEntity from '../entities/product.entity';
+// import CategoryEntity from '../entities/category.entity';
 
 @Module({
     imports: [
@@ -19,8 +19,9 @@ import CategoryEntity from '../entities/category.entity';
                 // entities: [
                 //     __dirname + '/../**/*.entity{.ts,.js}'
                 // ],
-                entities: [ProductEntity,CategoryEntity],
-                synchronize: false
+                // entities: [ProductEntity,CategoryEntity],
+                autoLoadEntities: true,
+                synchronize: true
             })
         })
     ]
