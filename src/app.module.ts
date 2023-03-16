@@ -5,6 +5,7 @@ import * as Joi from '@hapi/joi';
 import { DatabaseModule } from './database/database.module';
 import { PostModule } from './post/post.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   controllers: [],
@@ -26,6 +27,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
     }),
     DatabaseModule,
     AuthenticationModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {}

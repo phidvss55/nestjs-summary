@@ -56,7 +56,7 @@ export class AuthenticationController {
   @Get()
   authenticate(@Req() request: RequestWithUser) {
     const user = request.user;
-    // user.password = undefined;
+    user.password = undefined;
     return user;
   }
 }
