@@ -6,6 +6,7 @@ import { DatabaseModule } from './database/database.module';
 import { PostModule } from './post/post.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { CategoriesModule } from './categories/categories.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   controllers: [],
@@ -28,6 +29,7 @@ import { CategoriesModule } from './categories/categories.module';
     DatabaseModule,
     AuthenticationModule,
     CategoriesModule,
+    FileModule,
   ],
 })
 export class AppModule {}

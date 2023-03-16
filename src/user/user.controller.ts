@@ -3,14 +3,20 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  UseGuards,
   Param,
   Delete,
+  UseInterceptors,
+  Req,
+  UploadedFile,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import JwtAuthenticationGuard from '../authentication/jwt-authentication.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import RequestWithUser from 'src/authentication/interface/requestWithUser.interface';
+import { Express } from 'express';
 
 @Controller('user')
 @ApiTags('User')
@@ -22,23 +28,26 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
-  @Get()
-  findAll() {
-    return this.userService.findAll();
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.getById(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
-
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
+  }
+
+  @Post('avatar')
+  @UseGuards(JwtAuthenticationGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  async addAvatar(@Req() request: RequestWithUser, @UploadedFile() file: Express.Multer.File) {
+    return this.userService.addAvatar(request.user.id, file.buffer, file.originalname);
+  }
+
+  @Delete('avatar')
+  @UseGuards(JwtAuthenticationGuard)
+  async deleteAvatar(@Req() request: RequestWithUser) {
+    return this.userService.deleteAvatar(request.user.id);
   }
 }

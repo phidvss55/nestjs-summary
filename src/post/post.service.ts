@@ -49,7 +49,6 @@ export class PostService {
   }
   async remove(id: number) {
     const deleteResponse = await this.postsRepository.delete(id);
-    console.log('deleteResponse', deleteResponse);
     if (!deleteResponse.affected) {
       throw new PostNotFoundException(id);
     }
