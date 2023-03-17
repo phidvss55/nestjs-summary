@@ -37,6 +37,9 @@ async function bootstrap() {
     .setDescription('API generate routes')
     .setVersion('1.0')
     .build();
+
+  app.setGlobalPrefix('api');
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 

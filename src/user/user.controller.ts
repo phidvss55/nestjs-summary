@@ -17,6 +17,7 @@ import JwtAuthenticationGuard from '../authentication/jwt-authentication.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import RequestWithUser from 'src/authentication/interface/requestWithUser.interface';
 import { Express } from 'express';
+import ResponseData from 'src/utils/responseData';
 
 @Controller('user')
 @ApiTags('User')
@@ -24,13 +25,23 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @UseGuards(JwtAuthenticationGuard)
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.getById(+id);
+  @UseGuards(JwtAuthenticationGuard)
+  async findOne(@Param('id') id: string) {
+    const data = await this.userService.getById(+id);
+    return new ResponseData(200, data);
+  }
+
+  @Get('')
+  @UseGuards(JwtAuthenticationGuard)
+  async getAll() {
+    const data = await this.userService.getAllList();
+    return new ResponseData(200, data);
   }
 
   @Delete(':id')
