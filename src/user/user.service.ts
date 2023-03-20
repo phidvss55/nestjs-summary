@@ -7,6 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import UserEntity from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common/exceptions';
+import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class UserService {
@@ -15,6 +16,7 @@ export class UserService {
     private userRepository: Repository<UserEntity>,
     private readonly filesService: FileService,
     private readonly dataSource: DataSource,
+    private readonly databaseService: DatabaseService,
   ) {}
 
   async getByEmail(email: string) {
@@ -50,6 +52,21 @@ export class UserService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
     return 'User is deleted';
+  }
+
+  async restore(id: number) {
+    const databaseResponse = await this.databaseService.runQuery(
+      `
+      UPDATE comments
+      SET deletion_date=NULL
+      WHERE id = $1
+      RETURNING *
+      `,
+      [id],
+    );
+    if (databaseResponse.rowCount === 0) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
   }
 
   async addAvatar(userId: number, imageBuffer: Buffer, filename: string) {

@@ -49,6 +49,11 @@ export class UserController {
     return this.userService.remove(+id);
   }
 
+  @Post(':id')
+  restore(@Param('id') id: string) {
+    return this.userService.restore(+id);
+  }
+
   @Post('avatar')
   @UseGuards(JwtAuthenticationGuard)
   @UseInterceptors(FileInterceptor('file'))
