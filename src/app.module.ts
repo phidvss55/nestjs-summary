@@ -1,35 +1,31 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { UserModule } from './user/user.module';
 import * as Joi from '@hapi/joi';
+import { QuizModule } from './modules/quiz/quiz.module';
 import { DatabaseModule } from './database/database.module';
-import { PostModule } from './post/post.module';
-import { AuthenticationModule } from './authentication/authentication.module';
-import { CategoriesModule } from './categories/categories.module';
-import { FileModule } from './file/file.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   controllers: [],
   providers: [],
   imports: [
-    UserModule,
-    PostModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        POSTGRES_HOST: Joi.string().required(),
-        POSTGRES_PORT: Joi.number().required(),
-        POSTGRES_USER: Joi.string().required(),
-        POSTGRES_PASSWORD: Joi.string().required(),
-        POSTGRES_DB: Joi.string().required(),
+        DB_TYPE: Joi.string().required(),
+        DB_HOST: Joi.string().required(),
+        DB_PORT: Joi.number().required(),
+        DB_USER: Joi.string().required(),
+        DB_PASSWORD: Joi.string().required(),
+        DB_NAME: Joi.string().required(),
         PORT: Joi.number(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
       }),
+      isGlobal: true,
     }),
     DatabaseModule,
-    AuthenticationModule,
-    CategoriesModule,
-    FileModule,
+    QuizModule,
+    UserModule,
   ],
 })
 export class AppModule {}
