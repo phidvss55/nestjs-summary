@@ -7,7 +7,8 @@ import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ApiTokenCheckMiddleware } from './common/middleware/apiCheckToken.middleware';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { UploadModule } from './module/upload/upload.module';
+import { UploadModule } from './modules/upload/upload.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   controllers: [],
@@ -28,6 +29,7 @@ import { UploadModule } from './module/upload/upload.module';
       isGlobal: true,
     }),
     EventEmitterModule.forRoot(),
+    MulterModule.register({ dest: './uploads' }),
     DatabaseModule,
     QuizModule,
     UserModule,
