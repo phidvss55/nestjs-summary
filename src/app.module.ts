@@ -1,18 +1,14 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
-import { QuizModule } from './modules/quiz/quiz.module';
 import { DatabaseModule } from './database/database.module';
-import { UserModule } from './modules/user/user.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { ApiTokenCheckMiddleware } from './common/middleware/apiCheckToken.middleware';
-import { EventEmitterModule } from '@nestjs/event-emitter';
-import { UploadModule } from './modules/upload/upload.module';
-import { MulterModule } from '@nestjs/platform-express';
+import { KafkaModule } from './modules/kafka/kafka.module';
+import { PostsModule } from './modules/posts/posts.module';
+import { TestConsumer } from './modules/posts/test.consumer';
 
 @Module({
   controllers: [],
-  providers: [],
+  providers: [TestConsumer],
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
@@ -28,17 +24,9 @@ import { MulterModule } from '@nestjs/platform-express';
       }),
       isGlobal: true,
     }),
-    EventEmitterModule.forRoot(),
-    MulterModule.register({ dest: './uploads' }),
     DatabaseModule,
-    QuizModule,
-    UserModule,
-    AuthModule,
-    UploadModule,
+    KafkaModule,
+    PostsModule,
   ],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ApiTokenCheckMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
-  }
-}
+export class AppModule {}
