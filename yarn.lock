@@ -801,6 +801,13 @@
     path-to-regexp "3.2.0"
     tslib "2.5.0"
 
+"@nestjs/event-emitter@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/event-emitter/-/event-emitter-1.4.1.tgz#a96fae678b0257b9cd8f6c82c9f3f82a0690e221"
+  integrity sha512-PmLpzMYgEKJNxOUrRjb6kNSm2PC6J+BeLTuF/bkYViGM/mVGvYOgU5jq8DQnXmiSmDmyWN+tO2cHSnR7odJJRA==
+  dependencies:
+    eventemitter2 "6.4.9"
+
 "@nestjs/jwt@^10.0.2":
   version "10.0.2"
   resolved "https://registry.npmjs.org/@nestjs/jwt/-/jwt-10.0.2.tgz"
@@ -1148,7 +1155,7 @@
 
 "@types/multer@^1.4.7":
   version "1.4.7"
-  resolved "https://registry.npmjs.org/@types/multer/-/multer-1.4.7.tgz"
+  resolved "https://registry.yarnpkg.com/@types/multer/-/multer-1.4.7.tgz#89cf03547c28c7bbcc726f029e2a76a7232cc79e"
   integrity sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==
   dependencies:
     "@types/express" "*"
@@ -2605,6 +2612,11 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
+
+eventemitter2@6.4.9:
+  version "6.4.9"
+  resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-6.4.9.tgz#41f2750781b4230ed58827bc119d293471ecb125"
+  integrity sha512-JEPTiaOt9f04oa6NOkc4aH+nVp5I3wEjpHbIPqfgCdD5v5bUzy7xQqwcVO2aDQgOWhI28da57HksMrzK9HlRxg==
 
 events@1.1.1:
   version "1.1.1"
@@ -4203,6 +4215,11 @@ neo-async@^2.6.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+
+nestjs-typeorm-paginate@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/nestjs-typeorm-paginate/-/nestjs-typeorm-paginate-4.0.3.tgz#7dfda6988d424b022d0ca8715d88317d7b89f2b1"
+  integrity sha512-qr/pdSTIWTLRCf0xiAsGa2TV1KuHyramLzxV+n4VQ5RYLs7APusum7WdGWRWb/ByUlz+T9BWC5mKIGHotLtMnQ==
 
 node-abort-controller@^3.0.1:
   version "3.1.1"

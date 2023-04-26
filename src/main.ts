@@ -11,6 +11,7 @@ import ExcludeNullInterceptor from './utils/excludeNull.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({ origin: '*' });
   // Inject exception filter
   // const { httpAdapter } = app.get(HttpAdapterHost);
   // app.useGlobalFilters(new ExceptionsLoggerFilter(httpAdapter));

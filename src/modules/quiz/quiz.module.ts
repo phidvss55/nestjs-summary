@@ -9,9 +9,10 @@ import { QuestionController } from './controllers/question.controller';
 import { QuestionService } from './services/question.service';
 import { OptionService } from './services/option.service';
 import { OptionController } from './controllers/option.controller';
+import { UserModule } from '../user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Quiz, Question, Option])],
+  imports: [TypeOrmModule.forFeature([Quiz, Question, Option]), UserModule],
   controllers: [QuizController, QuestionController, OptionController],
   providers: [QuizService, QuestionService, OptionService],
   exports: [QuizService, QuestionService, OptionService],

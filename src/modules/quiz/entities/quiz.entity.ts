@@ -10,7 +10,6 @@ class Quiz extends BaseEntity {
   })
   id: number;
 
-  // Title
   @ApiProperty({
     description: 'Title of the quiz',
     example: 'Sample Laravel quiz',
