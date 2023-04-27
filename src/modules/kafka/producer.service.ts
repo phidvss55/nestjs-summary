@@ -1,23 +1,32 @@
-import { Producer, Kafka, ProducerRecord } from 'kafkajs';
+import { Producer, Kafka, ProducerRecord, Message } from 'kafkajs';
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
+import { IProducer } from './producer.interface';
+import { ConfigService } from '@nestjs/config';
+import { KafkajsProducer } from './kafkajs.producer';
 
 @Injectable()
 export class ProducerService implements OnApplicationShutdown {
-  private readonly kafka = new Kafka({
-    brokers: ['localhost:9092'],
-  });
+  private readonly producers = new Map<string, IProducer>();
+  constructor(private readonly configService: ConfigService) {}
 
-  private readonly producer: Producer = this.kafka.producer();
-
-  async onModuleInit() {
-    await this.producer.connect();
+  async produce(topic: string, message: Message) {
+    const producer = await this.getProducer(topic);
+    await producer.produce(message);
   }
 
-  async produce(record: ProducerRecord) {
-    await this.producer.send(record);
+  private async getProducer(topic: string) {
+    let producer = this.producers.get(topic);
+    if (!producer) {
+      producer = new KafkajsProducer(topic, 'localhost:9092');
+      await producer.connect();
+      this.producers.set(topic, producer);
+    }
+    return producer;
   }
 
   async onApplicationShutdown(signal?: string) {
-    await this.producer.disconnect();
+    for (const producer of this.producers.values()) {
+      await producer.disconnect();
+    }
   }
 }

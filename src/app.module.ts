@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
+import { KafkaModule } from './modules/kafka/kafka.module';
+import { TestConsumer } from './test.consumer';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { DatabaseModule } from './database/database.module';
-import { KafkaModule } from './modules/kafka/kafka.module';
-import { PostsModule } from './modules/posts/posts.module';
-import { TestConsumer } from './modules/posts/test.consumer';
 
 @Module({
-  controllers: [],
-  providers: [TestConsumer],
+  controllers: [AppController],
+  providers: [AppService],
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
@@ -25,8 +26,7 @@ import { TestConsumer } from './modules/posts/test.consumer';
       isGlobal: true,
     }),
     DatabaseModule,
-    KafkaModule,
-    PostsModule,
+    // KafkaModule,
   ],
 })
 export class AppModule {}

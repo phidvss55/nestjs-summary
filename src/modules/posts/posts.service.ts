@@ -12,14 +12,14 @@ export class PostsService {
   }
 
   async findAll() {
-    await this.producerService.produce({
-      topic: 'test',
-      messages: [
-        {
-          value: 'Hello World',
-        },
-      ],
-    });
+    // await this.producerService.produce({
+    //   topic: 'test',
+    //   messages: [
+    //     {
+    //       value: 'Hello World',
+    //     },
+    //   ],
+    // });
 
     return `This action returns all posts`;
   }

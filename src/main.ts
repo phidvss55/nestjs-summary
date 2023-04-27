@@ -1,28 +1,13 @@
-import { NestFactory, Reflector } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-//import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
-import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
-import ExcludeNullInterceptor from './utils/excludeNull.interceptor';
-//import { ConfigService } from '@nestjs/config';
-
-// declare const module: any;
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({ origin: '*' });
-  // Inject exception filter
-  // const { httpAdapter } = app.get(HttpAdapterHost);
-  // app.useGlobalFilters(new ExceptionsLoggerFilter(httpAdapter));
-
-  // Inject validation
   app.useGlobalPipes(new ValidationPipe());
-
-  // Inject interceptors
-  // app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  // app.useGlobalInterceptors(new ExcludeNullInterceptor());
-
   app.use(cookieParser());
 
   const config = new DocumentBuilder()
