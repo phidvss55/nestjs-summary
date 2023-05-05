@@ -9,24 +9,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
-  imports: [
-    /*ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        POSTGRES_HOST: Joi.string().required(),
-        POSTGRES_PORT: Joi.number().required(),
-        POSTGRES_USER: Joi.string().required(),
-        POSTGRES_PASSWORD: Joi.string().required(),
-        POSTGRES_DB: Joi.string().required(),
-        PORT: Joi.number(),
-      }),
-    }),
-    DatabaseModule,*/
-    TypeOrmModule.forRoot(dataSourceOptions),
-    ConfigModule.forRoot(),
-    AuthModule,
-    UsersModule,
-    PostsModule,
-  ],
+  imports: [TypeOrmModule.forRoot(dataSourceOptions), ConfigModule.forRoot(), AuthModule, UsersModule, PostsModule],
   controllers: [],
   providers: [
     {
