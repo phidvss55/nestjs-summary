@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Roles } from 'src/common/constants/roles.constants';
 
 export class AuthDto {
   @IsNotEmpty()
@@ -25,4 +26,12 @@ export class AuthDto {
     example: 'Johnny Deep',
   })
   name?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Role field',
+    enum: Roles,
+  })
+  role?: string;
 }

@@ -15,4 +15,4 @@ EXPOSE 5000
 
 COPY ./.env.example ./.env
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start"]

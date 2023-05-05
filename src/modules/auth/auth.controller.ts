@@ -1,3 +1,4 @@
+import { JwtPayload, JwtPayloadClass } from 'src/modules/auth/types/jwtPayload.type';
 import { GetCurrrentUser } from './../../common/decorators/getCurrentUser.decorator';
 import { GetCurrrentUserId } from './../../common/decorators/getCurrentUserId.decorator';
 import { Controller, Req, Post, Body, UseGuards, Get, HttpCode, HttpStatus } from '@nestjs/common';
@@ -41,6 +42,10 @@ export class AuthController {
   @Get('profile')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    description: 'Get profile of loggedin user',
+    type: JwtPayloadClass,
+  })
   async profile(@Req() req: Request) {
     return {
       data: req.user,
@@ -50,10 +55,13 @@ export class AuthController {
   @Post('refresh')
   @UseGuards(JwtRefreshAuthGuard)
   @HttpCode(HttpStatus.OK)
+  @Public()
+  @ApiResponse({
+    description: 'Return to token',
+    type: TokensSchema,
+  })
   refreshTokens(@GetCurrrentUserId() id: number, @GetCurrrentUser('refreshToken') token: string) {
     // const user = req.user;
-    console.log('id', id);
-    console.log('token', token);
     return this.authService.refreshTokens(id, token);
   }
 

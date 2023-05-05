@@ -3,7 +3,8 @@ import { JwtPayload } from 'src/modules/auth/types/jwtPayload.type';
 
 export const GetCurrrentUserId = createParamDecorator((_: undefined, context: ExecutionContext): number => {
   const request = context.switchToHttp().getRequest();
+  console.log('request', request.user);
   const user = request.user as JwtPayload;
 
-  return user.sub;
+  return user.id;
 });

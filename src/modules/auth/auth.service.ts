@@ -38,7 +38,7 @@ export class AuthService {
 
   async getTokens(id: number, email: string): Promise<Tokens> {
     const jwtPayload: JwtPayload = {
-      sub: id,
+      id: id,
       email: email,
     };
 
@@ -67,6 +67,7 @@ export class AuthService {
       email: data.email,
       password: hash,
       name: data.name,
+      role: data.role,
     };
 
     const newUser = await this.usersService.create(dataUser);
@@ -81,7 +82,6 @@ export class AuthService {
     const user = await this.usersService.getByEmail(dto.email);
 
     if (!user) throw new ForbiddenException('Access Denied');
-
     const passwordMatches = await bcrypt.compare(dto.password, user.password);
     if (!passwordMatches) throw new ForbiddenException('Access Denied');
 
@@ -91,18 +91,22 @@ export class AuthService {
     return tokens;
   }
 
-  async logout(id: number): Promise<boolean> {
+  async logout(id: number): Promise<object> {
     await this.usersService.update(id, { refresh_token: null });
-    return true;
+    return { status: true, message: 'Logout successfully', access_token: '0', refresh_token: '0' };
   }
 
   async refreshTokens(id: number, rt: string): Promise<Tokens> {
     const user = await this.usersService.getById(id);
 
-    if (!user || !user.refresh_token) throw new ForbiddenException('Access Denied');
+    if (!user || !user.refresh_token) {
+      throw new ForbiddenException('Access Denied');
+    }
 
     const rtMatches = await bcrypt.compare(rt, user.refresh_token);
-    if (!rtMatches) throw new ForbiddenException('Access Denied');
+    if (!rtMatches) {
+      throw new ForbiddenException('Access Denied');
+    }
 
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRefreshTokenHash(user.id, tokens.refresh_token);

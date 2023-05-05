@@ -6,6 +6,7 @@ import { dataSourceOptions } from 'config/datasource';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwtAuth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { APP_GUARD } from '@nestjs/core';
     ConfigModule.forRoot(),
     AuthModule,
     UsersModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [

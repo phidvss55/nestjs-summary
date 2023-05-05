@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import { Roles } from 'src/common/constants/roles.constants';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
@@ -37,8 +38,20 @@ class User {
     description: 'Refresh token of user',
     example: 'string',
   })
-  @Column()
-  public refresh_token: string;
+  @Column({
+    default: null,
+  })
+  public refresh_token?: string;
+
+  @Column({
+    default: Roles.CUSTOMER,
+    enum: Roles,
+  })
+  @ApiProperty({
+    description: 'Role of user',
+    example: 'string',
+  })
+  public role?: string;
 }
 
 export default User;

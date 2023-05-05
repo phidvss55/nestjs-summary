@@ -8,7 +8,7 @@ export const dataSourceOptions: DataSourceOptions = {
   port: 8083,
   password: 'A@123456789abcd',
   database: 'test',
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  entities: ['dist/src/../**/*.entity{.ts,.js}'],
   migrations: ['dist/config/migrations/*.js'],
   logger: new DatabaseLogger(),
   synchronize: false,
