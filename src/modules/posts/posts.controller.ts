@@ -6,8 +6,8 @@ import UpdatePostDto from './dto/updatePost.dto';
 import { JwtAuthGuard } from '../auth/guards/jwtAuth.guard';
 import PostEntity from './entity/post.entity';
 import { RolesGuard } from '../auth/guards/roles.guard';
-import { RolesDecorator } from 'src/common/decorators/roles.decorator';
-import { Roles } from 'src/common/constants/roles.constants';
+import { RolesDecorator } from '../../common/decorators/roles.decorator';
+import { Roles } from '../../common/constants/roles.constants';
 
 @ApiTags('Posts')
 @Controller('posts')
