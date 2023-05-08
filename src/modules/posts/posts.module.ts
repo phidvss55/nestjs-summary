@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CronPostService } from './posts.cron.service';
 import { AuthModule } from '../auth/auth.module';
 import { UsersModule } from '../users/users.module';
+import User from '../users/entity/user.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([PostEntity]), AuthModule, UsersModule],

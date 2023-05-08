@@ -12,7 +12,6 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class AuthService {
   constructor(
-    // private readonly prismaService: PrismaService,
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
@@ -67,7 +66,7 @@ export class AuthService {
       email: data.email,
       password: hash,
       name: data.name,
-      role: data.role,
+      role: data?.role,
     };
 
     const newUser = await this.usersService.create(dataUser);

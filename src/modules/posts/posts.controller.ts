@@ -6,7 +6,7 @@ import UpdatePostDto from './dto/updatePost.dto';
 import { JwtAuthGuard } from '../auth/guards/jwtAuth.guard';
 import PostEntity from './entity/post.entity';
 import { RolesGuard } from '../auth/guards/roles.guard';
-import { RolesDecorator } from '../../common/decorators/roles.decorator';
+import { RolesDecorator } from '../..//common/decorators/roles.decorator';
 import { Roles } from '../../common/constants/roles.constants';
 
 @ApiTags('Posts')
@@ -17,7 +17,8 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get()
-  @UseGuards(RolesGuard)
+  // @UseGuards(RolesGuard)
+  // @RolesDecorator(Roles.ADMIN)
   getAllPosts() {
     return this.postsService.getAllPosts();
   }
@@ -29,8 +30,8 @@ export class PostsController {
 
   @Post()
   @ApiCreatedResponse({ description: 'The post that got created', type: PostEntity })
-  @UseGuards(RolesGuard)
-  @RolesDecorator(Roles.ADMIN)
+  // @UseGuards(RolesGuard)
+  // @RolesDecorator(Roles.ADMIN)
   async createPost(@Body() post: CreatePostDto) {
     return this.postsService.createPost(post);
   }
