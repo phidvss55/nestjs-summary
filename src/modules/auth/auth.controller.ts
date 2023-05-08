@@ -1,4 +1,4 @@
-import { JwtPayload, JwtPayloadClass } from 'src/modules/auth/types/jwtPayload.type';
+import { JwtPayload, JwtPayloadClass } from '../../modules/auth/types/jwtPayload.type';
 import { GetCurrrentUser } from './../../common/decorators/getCurrentUser.decorator';
 import { GetCurrrentUserId } from './../../common/decorators/getCurrentUserId.decorator';
 import { Controller, Req, Post, Body, UseGuards, Get, HttpCode, HttpStatus } from '@nestjs/common';
@@ -8,7 +8,7 @@ import { JwtAuthGuard } from './guards/jwtAuth.guard';
 import { AuthDto } from './dto/auth.dto';
 import { Tokens, TokensSchema } from './types/tokens.type';
 import { Request } from 'express';
-import { Public } from 'src/common/decorators/public.decorator';
+import { Public } from '../../common/decorators/public.decorator';
 import { JwtRefreshAuthGuard } from './guards/jwtAuthRefresh.guard';
 
 @Controller('auth')
