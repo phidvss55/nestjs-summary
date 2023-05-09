@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PostsController } from '../posts.controller';
 import { PostsService } from '../posts.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import PostEntity from '../entity/post.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from '../../../modules/users/users.service';
 import User from '../../../modules/users/entity/user.entity';
@@ -42,5 +41,10 @@ describe('PostsController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  it('should create an post successfully', () => {
+    service.createPost = jest.fn();
+    expect(service).toEqual(3.5);
   });
 });

@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('posts')
-class PostEntity {
+export class PostEntity {
   @PrimaryGeneratedColumn()
   @ApiProperty({
     description: 'Id',
