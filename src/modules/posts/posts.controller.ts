@@ -17,8 +17,8 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get()
-  // @UseGuards(RolesGuard)
-  // @RolesDecorator(Roles.ADMIN)
+  @UseGuards(RolesGuard)
+  @RolesDecorator(Roles.ADMIN)
   getAllPosts() {
     return this.postsService.getAllPosts();
   }
@@ -30,8 +30,8 @@ export class PostsController {
 
   @Post()
   @ApiCreatedResponse({ description: 'The post that got created', type: PostEntity })
-  // @UseGuards(RolesGuard)
-  // @RolesDecorator(Roles.ADMIN)
+  @UseGuards(RolesGuard)
+  @RolesDecorator(Roles.ADMIN)
   async createPost(@Body() post: CreatePostDto) {
     return this.postsService.createPost(post);
   }
