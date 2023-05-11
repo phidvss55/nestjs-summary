@@ -1,0 +1,57 @@
+### TYPES ###
+type Person {
+  id: Int!
+  name: String!
+  age: Int
+}
+
+type UserGenreMovieCountRecResult {
+  genreName: String!
+  movieCount: Int!
+}
+
+type MovieRatingCountRecResult {
+  title: String!
+  popularity: Int!
+}
+
+### INPUTS ###
+input PersonInput {
+  name: String
+  age: Int
+}
+
+### ENUMS ###
+#Entities
+enum Entities {
+  Actor
+  Director
+  Genre
+  Movie
+  Person
+  User
+}
+#Relations
+enum Relations {
+  ACTED_IN
+  DIRECTED
+  IN_GENRE
+  RATED
+}
+
+### QUERIES ###
+type Query {
+  helloWorld: String
+  getPerson(id: Int!): Person
+
+  #Reccomendations
+  movieRatingCountRec(movieName: String!, limit: Int): [MovieRatingCountRecResult]
+  userGenreMovieCountRec(userName: String!, limit: Int): [UserGenreMovieCountRecResult]
+}
+
+### MUTATIONS ###
+type Mutation {
+  createPerson(personInput: PersonInput!): Person!
+  deletePerson(id: Int!): Boolean!
+  updatePerson(id: Int!, personInput: PersonInput!): Person!
+}
