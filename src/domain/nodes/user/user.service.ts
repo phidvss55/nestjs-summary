@@ -10,6 +10,7 @@ export class UserService {
   async userGenreMovieCountRec(userName: string, limit: number) {
     const genreAlias = `in${Relations.IN_GENRE}`;
     const movieCount = 'movieCount';
+
     const result = await this.queryRepository
       .initQuery()
       .match([

@@ -46,6 +46,7 @@
     "class-validator": "^0.14.0",
     "cypher-query-builder": "^6.0.4",
     "dotenv": "^16.0.3",
+    "moment": "^2.29.4",
     "mysql2": "^3.2.3",
     "neo4j-driver": "^5.8.0",
     "passport": "^0.6.0",

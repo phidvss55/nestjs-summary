@@ -1,11 +1,15 @@
-import { Neo4jModule } from './modules/neo4j/neo4j.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-// import { DatabaseModule } from './database/database.module';
 import * as Joi from '@hapi/joi';
-import { MovieModule } from './domain/nodes/movie/movie.module';
-import { PersonModule } from './domain/nodes/person/person.module';
-import { UsersModule } from './domain/nodes/user/user.module';
+// import { MovieModule } from './domain/nodes/movie/movie.module';
+// import { PersonModule } from './domain/nodes/person/person.module';
+// import { UsersModule } from './domain/nodes/user/user.module';
+import { Neo4jModule } from './modules/neo4j/neo4j.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
+import { EncryptionModule } from './modules/encryption/encryption.module';
+import { GenreModule } from './modules/genre/genre.module';
+import { SubscriptionModule } from './modules/subscription/subscription.module';
 
 @Module({
   imports: [
@@ -26,11 +30,15 @@ import { UsersModule } from './domain/nodes/user/user.module';
         DATABASE_PASSWORD: Joi.string().required(),
       }),
     }),
-    // DatabaseModule,
-    Neo4jModule.forRootAsync(),
-    PersonModule,
-    MovieModule,
-    UsersModule,
+    Neo4jModule.forRoot(),
+    AuthModule,
+    UserModule,
+    EncryptionModule,
+    SubscriptionModule,
+    GenreModule,
+    // PersonModule,
+    // MovieModule,
+    // UsersModule,
   ],
   controllers: [],
   providers: [],
