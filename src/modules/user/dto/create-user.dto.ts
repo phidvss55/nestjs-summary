@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { IsEmail, IsDate, IsNotEmpty, MaxDate } from 'class-validator';
 
 export class CreateUserDto {
@@ -10,11 +10,14 @@ export class CreateUserDto {
   password: string;
 
   @IsNotEmpty()
-  @IsDate()
+  // @IsDate()
   @Type(() => Date)
-  @MaxDate(require('moment')().subtract(13, 'y').toDate())
+  @MaxDate(require('moment')().subtract(10, 'y').toDate())
+  @Transform(({ value, key }) => new Date(value))
   dob: Date;
 
   firstname?: string;
+
+  
   lastname?: string;
 }

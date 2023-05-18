@@ -10,6 +10,7 @@ import { UserModule } from './modules/user/user.module';
 import { EncryptionModule } from './modules/encryption/encryption.module';
 import { GenreModule } from './modules/genre/genre.module';
 import { SubscriptionModule } from './modules/subscription/subscription.module';
+import { PlanModule } from './modules/plan/plan.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { SubscriptionModule } from './modules/subscription/subscription.module';
     EncryptionModule,
     SubscriptionModule,
     GenreModule,
+    PlanModule,
     // PersonModule,
     // MovieModule,
     // UsersModule,

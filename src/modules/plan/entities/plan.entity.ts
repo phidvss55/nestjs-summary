@@ -19,10 +19,10 @@ export class Plan {
     return (this.node.properties as Record<string, any>).duration;
   }
 
-  // toJson() {
-  //   return {
-  //     ...this.node.properties,
-  //     genres: this.genres.map((genre) => genre.properties),
-  //   };
-  // }
+  toJson(): any {
+    return {
+      ...this.node.properties,
+      genres: this.genres.map((genre) => genre.properties),
+    };
+  }
 }

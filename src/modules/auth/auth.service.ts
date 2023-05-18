@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { UpdateUserDto } from '../user/dto/update-user.dto';
 import { Neo4jService } from '../neo4j/neo4j.service';
-import { Transaction, types } from 'neo4j-driver';
+import { types } from 'neo4j-driver';
 import { User } from '../user/entities/user.entity';
 import { EncryptionService } from '../encryption/encryption.service';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
+import { Subscription } from '../subscription/entities/subscription.entity';
 
 @Injectable()
 export class AuthService {
@@ -49,7 +49,7 @@ export class AuthService {
     const user = res.records[0].get('u');
     const subscription = res.records[0].get('subscription');
 
-    // return new User(user, subscription ? new Subscription(subscription.subscription, subscription.plan) : undefined);
+    return new User(user, subscription ? new Subscription(subscription.subscription, subscription.plan) : undefined);
   }
 
   async validateUser(email: string, password: string) {
