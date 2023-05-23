@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './modules/users/users.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { dataSourceOptions } from 'config/datasource';
 import { AuthModule } from './modules/auth/auth.module';
 import { JwtAuthGuard } from './modules/auth/guards/jwtAuth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import * as Joi from '@hapi/joi';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
-    /*ConfigModule.forRoot({
+    ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
         POSTGRES_PORT: Joi.number().required(),
@@ -19,11 +19,10 @@ import { APP_GUARD } from '@nestjs/core';
         PORT: Joi.number(),
       }),
     }),
-    DatabaseModule,*/
-    TypeOrmModule.forRoot(dataSourceOptions),
+    /*DatabaseModule,
     ConfigModule.forRoot(),
     AuthModule,
-    UsersModule,
+    UsersModule,*/
   ],
   controllers: [],
   providers: [
