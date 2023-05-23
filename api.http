@@ -25,3 +25,19 @@ content-type: application/json
 ###
 DELETE http://localhost:5000/api/posts/7 HTTP/1.1
 content-type: application/json
+
+###
+GET http://localhost:5000/api/students
+Content-Type: application/json;
+
+###
+POST http://localhost:5000/api/students HTTP/1.1
+content-type: application/json
+
+{
+    "sID": 1,
+    "name": "Student any",
+    "year": 2,
+    "score": 3.3,
+    "faculty": "Faculty 1"
+}

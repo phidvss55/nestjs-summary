@@ -1,35 +1,28 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './modules/users/users.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { JwtAuthGuard } from './modules/auth/guards/jwtAuth.guard';
-import { APP_GUARD } from '@nestjs/core';
 import * as Joi from '@hapi/joi';
-import { DatabaseModule } from './database/database.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { StudentModule } from './modules/student/student.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        POSTGRES_HOST: Joi.string().required(),
-        POSTGRES_PORT: Joi.number().required(),
-        POSTGRES_USER: Joi.string().required(),
-        POSTGRES_PASSWORD: Joi.string().required(),
-        POSTGRES_DB: Joi.string().required(),
+        MONGO_HOST: Joi.string().required(),
+        MONGO_PORT: Joi.number().required(),
+        MONGO_DB: Joi.string().required(),
+        MONGO_URL: Joi.string().required(),
         PORT: Joi.number(),
       }),
     }),
+    MongooseModule.forRoot(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/research_mongodb'),
+    StudentModule,
     /*DatabaseModule,
     ConfigModule.forRoot(),
     AuthModule,
     UsersModule,*/
   ],
   controllers: [],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
-  ],
+  providers: [],
 })
 export class AppModule {}
