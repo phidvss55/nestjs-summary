@@ -1,5 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
+import { Authenticate } from '../../authenticate/entities/authenticate.entity';
+import mongoose from 'mongoose';
 
 export enum Faculty {
   FACULTY_1 = 'Faculty 1',
@@ -30,6 +32,9 @@ export class Student {
 
   @Prop()
   faculty: Faculty;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Authenticate' })
+  user: Authenticate;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

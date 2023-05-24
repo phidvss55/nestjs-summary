@@ -3,10 +3,13 @@ import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { MongooseModule } from '@nestjs/mongoose';
 import { StudentModule } from './modules/student/student.module';
+import { AuthenticateModule } from './modules/authenticate/authenticate.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
       validationSchema: Joi.object({
         MONGO_HOST: Joi.string().required(),
         MONGO_PORT: Joi.number().required(),
@@ -16,6 +19,7 @@ import { StudentModule } from './modules/student/student.module';
       }),
     }),
     MongooseModule.forRoot(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/research_mongodb'),
+    AuthenticateModule,
     StudentModule,
     /*DatabaseModule,
     ConfigModule.forRoot(),
