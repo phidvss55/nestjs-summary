@@ -11,13 +11,28 @@ export class StudentService {
   constructor(
     @InjectModel(Student.name)
     private readonly studentModel: Model<Student>,
+    @InjectModel(Authenticate.name)
+    private readonly userModel: Model<Authenticate>,
   ) {}
 
-  create(createStudentDto: CreateStudentDto, user: Authenticate) {
+  async create(createStudentDto: CreateStudentDto, user: Authenticate) {
+    console.log('user', user);
     const studentData = Object.assign(createStudentDto, { user: user._id });
-    const createdCat = new this.studentModel(studentData);
+    const newStudent = new this.studentModel(studentData);
 
-    return createdCat.save();
+    if (newStudent) {
+      await this.userModel.updateMany(
+        {
+          _id: { $in: createStudentDto.user },
+        },
+        {
+          $push: {
+            posts: newStudent._id,
+          },
+        },
+      );
+    }
+    return newStudent.save();
   }
 
   async findAll(query: any): Promise<Student[]> {
@@ -36,6 +51,7 @@ export class StudentService {
 
     const data = await this.studentModel
       .find({ ...keyword })
+      .populate('user')
       .limit(perPage)
       .skip(skip);
 
@@ -49,12 +65,11 @@ export class StudentService {
       throw new BadRequestException('Please enter correct id.');
     }
 
-    const book = await this.studentModel.findById(id);
+    const book = await this.studentModel.findById(id).populate('user');
 
     if (!book) {
       throw new NotFoundException('Student not found.');
     }
-
     return book;
   }
 

@@ -28,12 +28,15 @@ export class Student {
   year: number;
 
   @Prop()
+  @ApiProperty({ description: 'Property', example: 4.3 })
   score: number;
 
   @Prop()
+  @ApiProperty({ description: 'Property', example: 'Faculty 1' })
   faculty: Faculty;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Authenticate' })
+  @ApiProperty({ description: 'Property', example: '' })
   user: Authenticate;
 }
 

@@ -4,6 +4,7 @@ import * as Joi from '@hapi/joi';
 import { MongooseModule } from '@nestjs/mongoose';
 import { StudentModule } from './modules/student/student.module';
 import { AuthenticateModule } from './modules/authenticate/authenticate.module';
+import { InventoryModule } from './modules/inventory/inventory.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthenticateModule } from './modules/authenticate/authenticate.module';
     MongooseModule.forRoot(process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/research_mongodb'),
     AuthenticateModule,
     StudentModule,
+    InventoryModule,
     /*DatabaseModule,
     ConfigModule.forRoot(),
     AuthModule,

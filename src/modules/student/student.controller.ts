@@ -35,13 +35,14 @@ export class StudentController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ description: 'Get listing of students', type: Student })
+  @ApiOkResponse({ description: 'Get listing of students', type: Student, isArray: true })
   async findAll(@Query() query): Promise<Student[]> {
     return await this.studentService.findAll(query);
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
+  @ApiOkResponse({ description: 'Get listing of students', type: Student })
   findOne(@Param('id') id: string): Promise<Student> {
     return this.studentService.findById(id);
   }

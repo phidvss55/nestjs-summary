@@ -19,6 +19,8 @@ export class CreateStudentDto {
   score: number;
 
   @IsNotEmpty()
-  @IsEnum(Faculty, { message: 'Please enter correct category.' })
+  @IsEnum(Faculty, { message: 'Please enter correct faculty.' })
   faculty: Faculty;
+
+  user: any;
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { AuthenticateService } from './authenticate.service';
 import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
@@ -22,7 +22,13 @@ export class AuthenticateController {
     return await this.authenticateService.loginUser(loginDto);
   }
 
-  async getProfile() {
-    return 'API get profile'
+  @Get('')
+  async getUsers(@Query() query: any) {
+    return await this.authenticateService.getAllUsers(query);
+  }
+
+  @Get(':id')
+  async getProfile(@Param('id') id: string) {
+    return await this.authenticateService.getDetailUser(id);
   }
 }

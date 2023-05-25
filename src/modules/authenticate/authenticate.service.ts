@@ -68,4 +68,14 @@ export class AuthenticateService {
       refresh_token: res['refresh_token'],
     };
   }
+
+  async getAllUsers(query: any): Promise<Authenticate[]> {
+    return await this.authenticateModel.find().populate(['students', { path: 'inventories' }]);
+  }
+
+  async getDetailUser(id: string): Promise<Authenticate> {
+    return await this.authenticateModel.findById(id).populate({
+      path: 'inventories',
+    });
+  }
 }
