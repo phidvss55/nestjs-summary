@@ -13,7 +13,7 @@ import DatabaseLogger from './database.logger';
         host: configService.get('POSTGRES_HOST'),
         port: configService.get('POSTGRES_PORT'),
         username: configService.get('POSTGRES_USER'),
-        password: configService.get('POSTGRES_PASSWORD'),
+        password: configService.get<string>('POSTGRES_PASSWORD') || '12345678',
         database: configService.get('POSTGRES_DB'),
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: false,
