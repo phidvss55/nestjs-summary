@@ -1,9 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
+  HttpStatus,
+  HttpCode,
+} from '@nestjs/common';
 import { AuthenticateService } from './authenticate.service';
 import { SignUpDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { TokenType } from './entities/types';
+import { JwtAuthGuard } from './guards/jwtAuth.guard';
 
 @Controller('authenticate')
 @ApiTags('Authentication')
@@ -23,11 +36,14 @@ export class AuthenticateController {
   }
 
   @Get('')
+  @UseGuards(JwtAuthGuard)
   async getUsers(@Query() query: any) {
     return await this.authenticateService.getAllUsers(query);
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
   async getProfile(@Param('id') id: string) {
     return await this.authenticateService.getDetailUser(id);
   }

@@ -16,7 +16,6 @@ export class StudentService {
   ) {}
 
   async create(createStudentDto: CreateStudentDto, user: Authenticate) {
-    console.log('user', user);
     const studentData = Object.assign(createStudentDto, { user: user._id });
     const newStudent = new this.studentModel(studentData);
 

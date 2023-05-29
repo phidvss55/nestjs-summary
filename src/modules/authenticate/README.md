@@ -2,7 +2,7 @@
 
 ---
 
-### Others series will be use in auth module
+### Others series will be use in `auth` module
 
 ---
 
