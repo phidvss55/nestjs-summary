@@ -33,3 +33,4 @@ export function containsWhitespace(string) {
 export function areAllCharactersDigits(string) {
   return /^[0-9]+$/.test(string);
 }
+

@@ -13,8 +13,8 @@ import { DatabaseModule } from './database/database.module';
   providers: [
     {
       provide: APP_GUARD,
-      // useClass: JwtAuthGuard,
-      useExisting: JwtAuthGuard,
+      // useClass: JwtAuthGuard, //concrete class
+      useExisting: JwtAuthGuard, 
     },
     JwtAuthGuard,
   ],

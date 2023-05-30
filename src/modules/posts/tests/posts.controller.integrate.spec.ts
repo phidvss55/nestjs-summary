@@ -3,12 +3,12 @@ import { PostsController } from '../posts.controller';
 import { PostsService } from '../posts.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UsersService } from '../../../modules/users/users.service';
-import User from '../../../modules/users/entity/user.entity';
-import { JwtAuthGuard } from '../../../modules/auth/guards/jwtAuth.guard';
-import { MockAuthGuard } from '../../../modules/auth/guards/mockAuth.guard';
+import { UsersService } from '../../users/users.service';
+import User from '../../users/entity/user.entity';
+import { JwtAuthGuard } from '../../auth/guards/jwtAuth.guard';
+import { MockAuthGuard } from '../../auth/guards/mockAuth.guard';
 import CreatePostDto from '../dto/createPost.dto';
-import { PostEntity as Post } from './../entity/post.entity';
+import { PostEntity as Post } from '../entity/post.entity';
 
 describe('PostsController', () => {
   let controller: PostsController;
