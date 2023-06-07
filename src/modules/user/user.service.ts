@@ -8,15 +8,15 @@ import { Subscription } from '../subscription/entities/subscription.entity';
 export class UserService {
   constructor(private readonly neo4jService: Neo4jService) {}
 
-  private hydrate(res): User {
+  private hydrate(res: any): User {
     if (!res.records.length) {
       return undefined;
     }
 
     const user = res.records[0].get('u');
-    const subscription = res.records[0].get('subscription');
-
-    return new User(user, subscription ? new Subscription(subscription.subscription, subscription.plan) : undefined);
+    // const subscription = res.records[0].get('subscription');
+    // return new User(user, subscription ? new Subscription(subscription.subscription, subscription.plan) : undefined);
+    return new User(user);
   }
 
   findAll() {
@@ -30,12 +30,11 @@ export class UserService {
   async findByEmail(email: string) {
     const res = await this.neo4jService.read(
       `
-      MATCH (u:User { email: $email })
-      RETURN u
-    `,
+        MATCH (u:User { email: $email })
+        RETURN u
+      `,
       { email },
     );
-
     return this.hydrate(res);
   }
 

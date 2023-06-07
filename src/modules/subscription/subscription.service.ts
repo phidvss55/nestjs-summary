@@ -24,6 +24,7 @@ export class SubscriptionService {
     orderId: string = null,
   ): Promise<Subscription> {
     const userId: string = user.getId();
+
     const res = await this.neo4jService.write(
       `
             MATCH (u:User {id: $userId})

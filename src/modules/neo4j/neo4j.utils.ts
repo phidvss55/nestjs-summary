@@ -10,6 +10,7 @@ export const createDatabaseConfig = (configService: ConfigService, customConfig?
       port: configService.get('DATABASE_PORT'),
       scheme: configService.get('DATABASE_SCHEME'),
       username: configService.get('DATABASE_USERNAME'),
+      database: configService.get('DATABASE_DB'),
     }
   );
 };

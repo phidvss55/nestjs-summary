@@ -19,24 +19,26 @@ export class Neo4jModule {
         Neo4jService,
         {
           provide: NEO4J_CONFIG,
-          useValue: config,
+          // useValue: config,
+          inject: [ConfigService],
+          useFactory: (configService: ConfigService) => createDatabaseConfig(configService, config),
         },
         {
           provide: NEO4J_DRIVER,
           inject: [NEO4J_CONFIG, ConfigService],
           useFactory: async (config: Neo4jConfig, configService: ConfigService) => createDriver(config, configService),
         },
+        Neo4jService,
       ],
       exports: [Neo4jService],
     };
   }
 
-  // previous connect way
-  /*static forRootAsync(customConfig?: Neo4jConfig): DynamicModule {
+  static forRootAsync(customConfig?: Neo4jConfig): DynamicModule {
     return {
       module: Neo4jModule,
-      imports: [ConfigModule],
       global: true,
+      imports: [ConfigModule],
       providers: [
         {
           provide: NEO4J_CONFIG,
@@ -54,7 +56,7 @@ export class Neo4jModule {
                 password,
               }) as ConnectionWithDriver;
 
-              // await connection.driver.verifyConnectivity();
+              //await connection.driver.verifyConnectivity();
 
               console.log('Connection Sucecssfully');
 
@@ -67,5 +69,5 @@ export class Neo4jModule {
       ],
       exports: [QueryRepository],
     };
-  }*/
+  }
 }

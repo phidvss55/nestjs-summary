@@ -18,11 +18,6 @@ import { PlanModule } from './modules/plan/plan.module';
       isGlobal: true,
       envFilePath: '.env',
       validationSchema: Joi.object({
-        POSTGRES_HOST: Joi.string().required(),
-        POSTGRES_PORT: Joi.number().required(),
-        POSTGRES_USER: Joi.string().required(),
-        POSTGRES_PASSWORD: Joi.string().required(),
-        POSTGRES_DB: Joi.string().required(),
         PORT: Joi.number(),
         DATABASE_SCHEME: Joi.string().required(),
         DATABASE_HOST: Joi.string().required(),

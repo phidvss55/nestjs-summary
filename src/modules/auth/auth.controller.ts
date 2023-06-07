@@ -1,21 +1,11 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-  Request,
-  BadRequestException,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, UseGuards, Request, BadRequestException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './guards/localAuth.guard';
 import { JwtAuthGuard } from './guards/jwtAuth.guard';
 import { SubscriptionService } from '../subscription/subscription.service';
+import { User } from '../user/entities/user.entity';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -23,6 +13,9 @@ export class AuthController {
   constructor(private readonly authService: AuthService, private readonly subscriptionService: SubscriptionService) {}
 
   @Post('register')
+  @ApiOkResponse({
+    type: User,
+  })
   async register(@Body() createUserDto: CreateUserDto) {
     // const transaction: Transaction = req.transaction
 
@@ -30,6 +23,8 @@ export class AuthController {
       // transaction,
       createUserDto,
     );
+
+    // await this.subscriptionService.createSubscription(transaction, user, 0, 7, STATUS_ACTIVE);
 
     console.log(user);
 
@@ -49,7 +44,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('user')
+  @Get('refresh')
   async getUser(@Request() request) {
     const { access_token } = await this.authService.createToken(request.user);
 

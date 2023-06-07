@@ -21,6 +21,7 @@ export class AuthService {
     // databaseOrTransaction: string | Transaction,
     { email, password, dob, firstname, lastname }: CreateUserDto,
   ): Promise<User> {
+    const dayOfBirth = new Date(dob);
     const res = await this.neo4jService.write(
       `
         CREATE (u:User)
@@ -31,7 +32,7 @@ export class AuthService {
         properties: {
           email,
           password: await this.encryptionService.hash(password),
-          dob: types.Date.fromStandardDate(dob),
+          dob: types.Date.fromStandardDate(dayOfBirth),
           firstname,
           lastname,
         },
@@ -63,7 +64,6 @@ export class AuthService {
   }
 
   async createToken(user: User) {
-    // Deconstruct the properties
     const { id, email, dateOfBirth, firstName, lastName } = user.toJson();
 
     // Encode that into a JWT
