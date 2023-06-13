@@ -48,9 +48,10 @@ export class AuthService {
     }
 
     const user = res.records[0].get('u');
-    const subscription = res.records[0].get('subscription');
+    // const subscription = res.records[0].get('subscription');
 
-    return new User(user, subscription ? new Subscription(subscription.subscription, subscription.plan) : undefined);
+    // return new User(user, subscription ? new Subscription(subscription.subscription, subscription.plan) : undefined);
+    return new User(user, undefined);
   }
 
   async validateUser(email: string, password: string) {

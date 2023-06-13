@@ -11,6 +11,8 @@ import { EncryptionModule } from './modules/encryption/encryption.module';
 import { GenreModule } from './modules/genre/genre.module';
 import { SubscriptionModule } from './modules/subscription/subscription.module';
 import { PlanModule } from './modules/plan/plan.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { FileModule } from './modules/file/file.module';
 
 @Module({
   imports: [
@@ -33,9 +35,8 @@ import { PlanModule } from './modules/plan/plan.module';
     SubscriptionModule,
     GenreModule,
     PlanModule,
-    // PersonModule,
-    // MovieModule,
-    // UsersModule,
+    MulterModule.register({ dest: './uploads' }),
+    FileModule,
   ],
   controllers: [],
   providers: [],
