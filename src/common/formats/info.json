@@ -1,0 +1,35 @@
+{
+  "personal_info": {
+    "name": "",
+    "address": "",
+    "email": "",
+    "phone_number": ""
+  },
+  "education": [
+    {
+      "degree": "",
+      "institution": "",
+      "major": "",
+      "gpa": "",
+      "certifications": []
+    }
+  ],
+  "work_experience": [
+    {
+      "job_title": "",
+      "company_name": "",
+      "employment_dates": "",
+      "job_duties": [],
+      "accomplishments": []
+    }
+  ],
+  "hard_skills": [],
+  "soft_skills": [],
+  "industry_experience": [],
+  "job_preferences": {
+    "job_title": "",
+    "company_culture": "",
+    "work_location": "",
+    "salary_range": ""
+  }
+}

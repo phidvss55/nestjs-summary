@@ -26,7 +26,7 @@ export class AuthController {
 
     // await this.subscriptionService.createSubscription(transaction, user, 0, 7, STATUS_ACTIVE);
 
-    console.log(user);
+    // console.log(user);
 
     return user;
   }

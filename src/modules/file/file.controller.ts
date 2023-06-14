@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileService } from './file.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { imageFileFilter } from '../../common/helpers';
@@ -26,12 +26,11 @@ export class FileController {
     }),
   )
   public async uploadFile(@UploadedFile() file: any) {
-    console.log('file', file);
-    const res = {
-      originalname: file.originalname,
-      filename: file.filename,
-    };
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
 
+    const res = this.fileService.parseFileToJson(file);
     return res;
   }
 

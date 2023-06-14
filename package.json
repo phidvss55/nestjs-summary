@@ -40,9 +40,13 @@
     "@nestjs/swagger": "^6.3.0",
     "@nestjs/typeorm": "^9.0.1",
     "@types/bcrypt": "^5.0.0",
+    "@types/cheerio": "^0.22.31",
     "@types/hapi__joi": "^17.1.9",
     "@types/multer": "^1.4.7",
+    "@types/textract": "^2.4.2",
+    "@types/underscore": "^1.11.5",
     "bcrypt": "^5.1.0",
+    "cheerio": "^1.0.0-rc.12",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cypher-query-builder": "^6.0.4",
@@ -56,8 +60,13 @@
     "passport-local": "^1.0.0",
     "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",
+    "request": "^2.88.2",
+    "resume-parser": "^1.1.0",
+    "resume-parser-extended": "^1.1.15",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.3.15"
+    "textract": "^2.5.0",
+    "typeorm": "^0.3.15",
+    "underscore": "^1.13.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.4.2",
