@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post, Req, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileService } from './file.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { imageFileFilter } from '../../common/helpers';
@@ -31,6 +31,11 @@ export class FileController {
 
     const res = this.fileService.parseFileToJson(file);
     return res;
+  }
+
+  @Post('parse-resume-path')
+  public async parseResumeFromPath(@Body() body: any) {
+    return this.fileService.parsePathToJson(body.path);
   }
 
   @Post('multiple-upload')

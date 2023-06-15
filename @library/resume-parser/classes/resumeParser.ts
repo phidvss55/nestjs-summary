@@ -14,6 +14,7 @@ class ResumeParser {
     if (typeof fileObj === 'string' && (fileObj.startsWith('http') || fileObj.startsWith('https'))) {
       this.type = 'url';
       this.path = fileObj;
+      this.file = null;
     } else {
       this.type = 'file';
       this.file = fileObj;
@@ -29,7 +30,7 @@ class ResumeParser {
         return resolve(this.data);
       }
 
-      parseIt.parseToJSON(this.file, this.type, (file, error) => {
+      parseIt.parseToJSON(this.file || this.path, this.type, (file, error) => {
         if (error) {
           return reject(error);
         }
@@ -45,7 +46,7 @@ class ResumeParser {
         reject('Missing ouput path');
       }
 
-      parseIt.parseToFile(this.file, this.type, outputPath, (file, error) => {
+      parseIt.parseToFile(this.file || this.path, this.type, outputPath, (file, error) => {
         if (error) {
           return reject(error);
         }

@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
-// import { MovieModule } from './domain/nodes/movie/movie.module';
-// import { PersonModule } from './domain/nodes/person/person.module';
-// import { UsersModule } from './domain/nodes/user/user.module';
 import { Neo4jModule } from './modules/neo4j/neo4j.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
