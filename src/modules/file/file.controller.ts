@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Post, Req, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Post, Req, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileService } from './file.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { imageFileFilter } from '../../common/helpers';
@@ -29,8 +29,7 @@ export class FileController {
       throw new BadRequestException('No file uploaded');
     }
 
-    const res = this.fileService.parseFileToJson(file);
-    return res;
+    return this.fileService.parseFileToJson(file);
   }
 
   @Post('parse-resume-path')

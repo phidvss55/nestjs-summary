@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CONVERTED_PATH } from '../../common/constants/common.constant';
-import ResumeParser from '../../../@library/resume-parser/classes/resumeParser';
+import ResumeParser from '../../../@library/resume-parser';
 
 @Injectable()
 export class FileService {

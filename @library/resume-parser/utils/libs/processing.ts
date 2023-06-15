@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as textract from 'textract';
 import * as mime from 'mime';
 import { UPLOAD_PATH } from '../constants';
+import * as pdfParse from "pdf-parse";
 
 /**
  *
@@ -79,6 +80,14 @@ function extractTextFile(file, cbAfterExtract) {
       return cbAfterExtract(null, 'cbAfterExtract should be a function');
     }
   });
+
+  // console.log('file', file)
+
+  // const databuffer = fs.readFileSync(file.path);
+  // pdfParse(databuffer).then(function(data) {
+  //   console.log('data', data)
+  // })
+
 }
 
 function extractTextUrl(url, cbAfterExtract) {
