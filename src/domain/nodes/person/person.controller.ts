@@ -19,7 +19,7 @@ export class PersonController {
   }
 
   @Delete(':id')
-  async deletePerson(@Param('id') id: number): Promise<Boolean> {
+  async deletePerson(@Param('id') id: number): Promise<boolean> {
     return await this.personService.deletePerson(id);
   }
 

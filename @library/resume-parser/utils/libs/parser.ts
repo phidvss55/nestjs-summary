@@ -1,14 +1,15 @@
 import _ from 'underscore';
-import fs from 'fs';
-import createResume, { Resume } from '../resume';
+import { Resume } from '../resume';
 import dictionary from '../../directory';
+import * as fs from 'fs';
+import { DATA_PARSE_PATH, UPLOAD_PATH } from '../constants';
 
-let profilesWatcher = {
+const profilesWatcher = {
   inProgress: 0,
 };
 
 function makeRegExpFromDictionary() {
-  var regularRules = {
+  const regularRules = {
     titles: {},
     profiles: [],
     inline: {},
@@ -23,15 +24,20 @@ function makeRegExpFromDictionary() {
   });
 
   _.forEach(dictionary.profiles, function (profile: any) {
-    var profileHandler, profileExpr;
+    let profileHandler: any;
 
+    if (typeof profile !== 'string') {
+      profile = profile[0];
+    }
+
+    const profileExpr: string = '((?:https?://)?(?:www\\.)?' + profile.replace('.', '\\.') + '[/\\w \\.-]*)';
     if (_.isArray(profile)) {
       if (_.isFunction(profile[1])) {
         profileHandler = profile[1];
       }
       profile = profile[0];
     }
-    profileExpr = '((?:https?://)?(?:www\\.)?' + profile.replace('.', '\\.') + '[/\\w \\.-]*)';
+
     if (_.isFunction(profileHandler)) {
       regularRules.profiles.push([profileExpr, profileHandler]);
     } else {
@@ -54,18 +60,23 @@ function parse(PreparedFile, cbReturnResume) {
     cbReturnResume({ parts: {} }, { error: 'Failed to parse' });
     return {};
   }
-  let rawFileData = PreparedFile.raw;
-  let resumeObj = new Resume();
-  let rows = rawFileData.split('\n');
+  const rawFileData = PreparedFile.raw;
+  const resumeObj = new Resume();
+  const rows = rawFileData.split('\n');
   let row: any;
 
   // save prepared file text (for debug)
-  //fs.writeFileSync('./parsed/'+PreparedFile.name + '.txt', rawFileData);
+  let parsed_path = process.cwd() + '/' + UPLOAD_PATH + '/' + DATA_PARSE_PATH;
+  if (!fs.existsSync(parsed_path)) {
+    fs.mkdirSync(parsed_path);
+  }
+  parsed_path = parsed_path + '/' + PreparedFile.name + '.txt';
+  fs.writeFile(parsed_path, rawFileData, { flag: 'a+' }, (err) => console.log('err', err));
 
   // 1 parse regulars
   parseDictionaryRegular(rawFileData, resumeObj);
 
-  for (var i = 0; i < rows.length; i++) {
+  for (let i = 0; i < rows.length; i++) {
     row = rows[i];
 
     // 2 parse profiles
@@ -77,15 +88,12 @@ function parse(PreparedFile, cbReturnResume) {
 
   if (_.isFunction(cbReturnResume)) {
     // wait until download and handle internet profile
-    var i = 0;
-    var checkTimer = setInterval(function () {
+    let i = 0;
+    const checkTimer = setInterval(function () {
       i++;
-      /**
-       * FIXME:profilesWatcher.inProgress not going down to 0 for txt files
-       */
       if (profilesWatcher.inProgress === 0 || i > 5) {
         //if (profilesWatcher.inProgress === 0) {
-        cbReturnResume(Resume);
+        cbReturnResume(resumeObj);
         clearInterval(checkTimer);
       }
     }, 200);
@@ -102,7 +110,7 @@ function parse(PreparedFile, cbReturnResume) {
  */
 function restoreTextByRows(rowNum, allRows) {
   rowNum = rowNum - 1;
-  var rows = [];
+  const rows = [];
 
   do {
     rows.push(allRows[rowNum]);
@@ -127,7 +135,7 @@ function countWords(str) {
  * @param row
  */
 function parseDictionaryInline(Resume, row) {
-  var find;
+  let find;
 
   _.forEach(dictionary.inline, function (expression, key) {
     find = new RegExp(expression).exec(row);
@@ -143,8 +151,8 @@ function parseDictionaryInline(Resume, row) {
  * @param Resume
  */
 function parseDictionaryRegular(data, Resume) {
-  var regularDictionary = dictionary.regular,
-    find;
+  const regularDictionary = dictionary.regular;
+  let find: any;
 
   _.forEach(regularDictionary, function (expressions, key) {
     _.forEach(expressions, function (expression) {
@@ -163,12 +171,13 @@ function parseDictionaryRegular(data, Resume) {
  * @param rowIdx
  */
 function parseDictionaryTitles(Resume, rows, rowIdx) {
-  var allTitles = _.flatten(_.toArray(dictionary.titles)).join('|'),
-    searchExpression = '',
-    row = rows[rowIdx],
-    ruleExpression,
-    isRuleFound,
-    result;
+  let allTitles = _.flatten(_.toArray(dictionary.titles)).join('|');
+  let searchExpression = '';
+  let ruleExpression: any;
+  let isRuleFound: any;
+  let result;
+
+  const row = rows[rowIdx];
 
   _.forEach(dictionary.titles, function (expressions, key) {
     expressions = expressions || [];
@@ -200,12 +209,12 @@ function parseDictionaryTitles(Resume, rows, rowIdx) {
  * @returns {*}
  */
 function parseDictionaryProfiles(row, Resume) {
-  var regularDictionary = dictionary.profiles,
-    find,
-    modifiedRow = row;
+  const regularDictionary = dictionary.profiles;
+  let find: any;
+  let modifiedRow = row;
 
   _.forEach(regularDictionary, function (expression: any) {
-    var expressionHandler;
+    let expressionHandler;
 
     if (_.isArray(expression)) {
       if (_.isFunction(expression[1])) {
@@ -213,6 +222,7 @@ function parseDictionaryProfiles(row, Resume) {
       }
       expression = expression[0];
     }
+
     find = new RegExp(expression).exec(row);
     if (find) {
       Resume.addKey('profiles', find[0] + '\n');

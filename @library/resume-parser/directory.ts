@@ -29,7 +29,7 @@ const dictionary = {
       function (url, Resume, profilesWatcher) {
         download(url, function (data, err) {
           if (data) {
-            var $ = cheerio.load(data),
+            const $ = cheerio.load(data),
               fullName = $('.vcard-fullname').text(),
               location = $('.octicon-location').parent().text(),
               mail = $('.octicon-mail').parent().text(),
@@ -58,7 +58,7 @@ const dictionary = {
       function (url, Resume, profilesWatcher) {
         download(url, function (data, err) {
           if (data) {
-            var $ = cheerio.load(data),
+            const $ = cheerio.load(data),
               linkedData = {
                 summary: '',
                 name: '',
@@ -91,7 +91,7 @@ const dictionary = {
             };
             // past positions
             _.forEach($pastPositions, function (pastPosition) {
-              var $pastPosition = $(pastPosition);
+              const $pastPosition = $(pastPosition);
               linkedData.positions.past.push({
                 title: $pastPosition.find('header > h4').text(),
                 company: $pastPosition.find('header > h5').text(),
@@ -106,7 +106,7 @@ const dictionary = {
               linkedData.skills.push($(skill).text());
             });
             _.forEach($educations, function (education) {
-              var $education = $(education);
+              const $education = $(education);
               linkedData.educations.push({
                 title: $education.find('header > h4').text(),
                 major: $education.find('header > h5').text(),

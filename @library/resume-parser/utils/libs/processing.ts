@@ -1,9 +1,9 @@
-// textract = require('textract'),
-// mime = require('mime'),
-
 import _ from 'underscore';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as textract from 'textract';
+import * as mime from 'mime';
+import { UPLOAD_PATH } from '../constants';
 
 /**
  *
@@ -44,12 +44,11 @@ function processUrl(url, cbAfterProcessing) {
  * @returns {string}
  */
 function cleanTextByRows(data) {
-  var rows,
-    clearRow,
-    clearRows = [];
+  const rows = data.split('\n');
+  const clearRows = [];
+  let clearRow: any;
 
-  rows = data.split('\n');
-  for (var i = 0; i < rows.length; i++) {
+  for (let i = 0; i < rows.length; i++) {
     clearRow = cleanStr(rows[i]);
     if (clearRow) {
       clearRows.push(clearRow);
@@ -65,15 +64,15 @@ function cleanTextByRows(data) {
  * @param cbAfterExtract
  */
 function extractTextFile(file, cbAfterExtract) {
-  console.log(file);
-  textract.fromFileWithPath(file, { preserveLineBreaks: true }, function (err, data) {
+  textract.fromFileWithPath(file.path, { preserveLineBreaks: true }, function (err, data) {
     if (err) {
       console.error(err);
       return cbAfterExtract(null, err);
     }
+
     if (_.isFunction(cbAfterExtract)) {
       data = cleanTextByRows(data);
-      var File = new PreparedFile(file, data.replace(/^\s/gm, ''));
+      const File = new PreparedFile(file, data.replace(/^\s/gm, ''));
       cbAfterExtract(File);
     } else {
       console.error('cbAfterExtract should be a function');
@@ -113,7 +112,7 @@ function PreparedFile(file, raw) {
   this.mime = mime.getType(file);
   this.ext = mime.getExtension(this.mime);
   this.raw = raw;
-  this.name = path.basename(file);
+  this.name = path.basename(file.path);
 }
 
 /**
@@ -131,11 +130,20 @@ PreparedFile.prototype.saveResume = function (path, cbSavedResume) {
     return console.error('cbSavedResume should be a function');
   }
 
-  if (fs.statSync(path).isDirectory() && this.resume) {
-    fs.writeFile(path + '/' + this.name + '.json', this.resume.jsoned(), cbSavedResume);
+  const parsed_path = process.cwd() + '/' + UPLOAD_PATH + '/' + path;
+  if (!fs.existsSync(parsed_path)) {
+    fs.mkdirSync(parsed_path);
+  }
+
+  if (fs.statSync(parsed_path).isDirectory() && this.resume) {
+    const storedPath = parsed_path + '/' + this.name + '.json';
+    console.log('this.resume', this.resume)
+    fs.writeFile(storedPath, this.resume.jsoned(), cbSavedResume);
   }
 };
 
-module.exports.runFile = processFile;
-module.exports.runUrl = processUrl;
-module.exports.PreparedFile = PreparedFile;
+export default {
+  runFile: processFile,
+  runUrl: processUrl,
+  PreparedFile: PreparedFile,
+};

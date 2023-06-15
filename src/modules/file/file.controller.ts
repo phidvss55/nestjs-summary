@@ -17,7 +17,6 @@ export class FileController {
       storage: diskStorage({
         destination: './uploads',
         filename: (req, file, cb) => {
-          console.log('file, ', file);
           const filename = file.originalname;
           cb(null, filename);
         },

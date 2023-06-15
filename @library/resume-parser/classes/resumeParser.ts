@@ -4,25 +4,32 @@ class ResumeParser {
   public type: string;
   public path: string;
   public data: any;
+  public file: any;
 
-  constructor(filePath: any) {
-    if (!filePath) {
+  constructor(fileObj: any) {
+    if (!fileObj) {
       throw new Error('A file path or URL is required');
     }
-    if (filePath.startsWith('http') || filePath.startsWith('https')) {
+
+    if (typeof fileObj === 'string' && (fileObj.startsWith('http') || fileObj.startsWith('https'))) {
       this.type = 'url';
+      this.path = fileObj;
     } else {
       this.type = 'file';
+      this.file = fileObj;
+      this.path = fileObj.path;
     }
 
-    this.path = filePath;
     this.data = null;
   }
 
   parseToJSON() {
     return new Promise((resolve, reject) => {
-      if (this.data) return resolve(this.data);
-      parseIt.parseToJSON(this.path, this.type, (file, error) => {
+      if (this.data) {
+        return resolve(this.data);
+      }
+
+      parseIt.parseToJSON(this.file, this.type, (file, error) => {
         if (error) {
           return reject(error);
         }
@@ -37,7 +44,8 @@ class ResumeParser {
       if (!outputPath) {
         reject('Missing ouput path');
       }
-      parseIt.parseToFile(this.path, this.type, outputPath, (file, error) => {
+
+      parseIt.parseToFile(this.file, this.type, outputPath, (file, error) => {
         if (error) {
           return reject(error);
         }

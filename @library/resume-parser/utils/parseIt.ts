@@ -1,8 +1,7 @@
-// var processing = require('./libs/processing');
 import ParseBoy from './parseBoy';
 import processing from './libs/processing';
 
-var parser = {
+const parser = {
   parseToJSON: function (path: any, type: any, cbAfterParse: any) {
     const objParseBoy = new ParseBoy();
     if (type === 'url') {
@@ -29,7 +28,7 @@ var parser = {
     };
 
     if (type === 'url') {
-      processing.runUrl(path, (preppedFile, error) => {
+      processing.runUrl(path, (preppedFile) => {
         if (preppedFile) {
           objParseBoy.parseUrl(preppedFile, (resume) =>
             storeFile(new processing.PreparedFile(path.split('/').pop(), preppedFile), resume, savePath, cbAfterParse),
@@ -37,7 +36,7 @@ var parser = {
         }
       });
     } else {
-      processing.runFile(path, (preppedFile, error) => {
+      processing.runFile(path, (preppedFile) => {
         if (preppedFile) {
           objParseBoy.parseFile(preppedFile, (resume) => storeFile(preppedFile, resume, savePath, cbAfterParse));
         }

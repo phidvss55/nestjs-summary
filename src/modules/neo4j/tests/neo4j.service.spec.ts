@@ -17,7 +17,7 @@ describe('Neo4jService', () => {
   });
 
   it('should establish a connection to Neo4j', async () => {
-    const isConnected = await service.getReadSession()
+    const isConnected = await service.getReadSession();
 
     expect(isConnected).toBe(true);
   });

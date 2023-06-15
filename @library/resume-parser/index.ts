@@ -1,3 +1,3 @@
-// const ResumeParser = require("./classes/ResumeParser");
+import ResumeParser from './classes/resumeParser';
 
-// module.exports = ResumeParser;
+export default ResumeParser;

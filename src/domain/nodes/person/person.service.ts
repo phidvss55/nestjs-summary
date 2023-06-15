@@ -47,7 +47,7 @@ export class PersonService {
     }
   }
 
-  async deletePerson(id: number): Promise<Boolean> {
+  async deletePerson(id: number): Promise<boolean> {
     await this.queryRepository
       .initQuery()
       .match([node(Entities.Person, Entities.Person)])
