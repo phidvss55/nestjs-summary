@@ -9,7 +9,7 @@ import UpdatePostDto from './dto/updatePost.dto';
 export class PostsService {
   constructor(
     @InjectRepository(PostEntity)
-    private readonly postsRepository: Repository<PostEntity>
+    private readonly postsRepository: Repository<PostEntity>,
   ) {}
 
   getAllPosts() {
