@@ -8,6 +8,6 @@ import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 
 @Module({
-  imports: [CategoryModule, ArticleModule, MenuModule, TransactionModule, OrderModule, UserModule, ProductModule]
+  imports: [CategoryModule, ArticleModule, MenuModule, TransactionModule, OrderModule, UserModule, ProductModule],
 })
 export class BackendModule {}

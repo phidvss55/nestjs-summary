@@ -7,22 +7,22 @@ import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService)
+  const configService = app.get(ConfigService);
   app.use(cookieParser());
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('API with NestJs')
     .setDescription('API development throught the api with NestJs')
     .setVersion('1.0')
-    .build()
+    .build();
 
-  app.setGlobalPrefix('api')
-  const document = SwaggerModule.createDocument(app, swaggerConfig)
-  SwaggerModule.setup('api', app, document)
+  app.setGlobalPrefix('api');
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('api', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
 
-  const port = configService.get('PORT', 3000)
+  const port = configService.get('PORT', 3000);
   await app.listen(port);
 }
 bootstrap();

@@ -10,45 +10,43 @@ import { Paging } from 'src/utils/paging';
 @Controller('cms/category')
 @ApiTags('Category')
 export class CategoryController {
-    constructor(
-        private readonly categoryService: CategoryService
-    ){}
+  constructor(private readonly categoryService: CategoryService) {}
 
-    @Get()
-    async getListAllCategories(@Query() query) {
-        const paging = {
-            page: query.page || 1,
-            page_size: query.page_size || 10
-        }
+  @Get()
+  async getListAllCategories(@Query() query) {
+    const paging = {
+      page: query.page || 1,
+      page_size: query.page_size || 10,
+    };
 
-        const filter = {
-            hot: query.hot || null,
-            status: query.status || null
-        }
+    const filter = {
+      hot: query.hot || null,
+      status: query.status || null,
+    };
 
-        const [res, count] = await this.categoryService.getAllCategories(paging, filter)
-        const pagingData = new Paging(Number(paging.page), Number(paging.page_size), count);
-        return new ResponseData(200, res, 'Success', pagingData);
-    }
+    const [res, count] = await this.categoryService.getAllCategories(paging, filter);
+    const pagingData = new Paging(Number(paging.page), Number(paging.page_size), count);
+    return new ResponseData(200, res, 'Success', pagingData);
+  }
 
-    @Post('')
-    async createCategory(@Body() categoryDto: CreateCategoryDto) {
-        return await this.categoryService.storeCategory(categoryDto)
-    }
+  @Post('')
+  async createCategory(@Body() categoryDto: CreateCategoryDto) {
+    return await this.categoryService.storeCategory(categoryDto);
+  }
 
-    @Get(':id')
-    async getPostById(@Param('id') id: string) {
-        let data = await this.categoryService.show(Number(id));
-        return new ResponseData(200, data);
-    }
+  @Get(':id')
+  async getPostById(@Param('id') id: string) {
+    const data = await this.categoryService.show(Number(id));
+    return new ResponseData(200, data);
+  }
 
-    @Put(':id')
-    async updateCategory(@Param('id') id: string, @Body() cateData: UpdateCategoryDto) {
-        return this.categoryService.update(Number(id), cateData);
-    }
-   
-    @Delete(':id')
-    destroy(@Param('id') id: number) {
-        return this.categoryService.destroy(id)
-    }
+  @Put(':id')
+  async updateCategory(@Param('id') id: string, @Body() cateData: UpdateCategoryDto) {
+    return this.categoryService.update(Number(id), cateData);
+  }
+
+  @Delete(':id')
+  destroy(@Param('id') id: number) {
+    return this.categoryService.destroy(id);
+  }
 }

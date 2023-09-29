@@ -2,6 +2,6 @@ import { Module } from '@nestjs/common';
 import { MenuController } from './menu.controller';
 
 @Module({
-  controllers: [MenuController]
+  controllers: [MenuController],
 })
 export class MenuModule {}

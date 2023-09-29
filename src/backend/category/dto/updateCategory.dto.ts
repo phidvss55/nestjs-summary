@@ -1,4 +1,4 @@
-import CreateCategoryDto from "./createCategory.dto";
+import CreateCategoryDto from './createCategory.dto';
 
 export class UpdateCategoryDto extends CreateCategoryDto {
   id: number;

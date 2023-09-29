@@ -1,7 +1,7 @@
-import CreatePostDto from "./CreateProductDto.dto";
+import CreatePostDto from './CreateProductDto.dto';
 
 export class UpdatePostDto extends CreatePostDto {
   id: number;
 }
-  
+
 export default UpdatePostDto;

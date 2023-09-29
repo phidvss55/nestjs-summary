@@ -9,15 +9,7 @@ import { MenuModule } from './menu/menu.module';
 import { CategoryModule } from './category/category.module';
 
 @Module({
-  imports: [
-    ProductModule,
-    UserModule,
-    TransactionModule, 
-    OrderModule, 
-    ArticleModule, 
-    MenuModule, 
-    CategoryModule
-  ],
-  controllers: []
+  imports: [ProductModule, UserModule, TransactionModule, OrderModule, ArticleModule, MenuModule, CategoryModule],
+  controllers: [],
 })
 export class FrontendModule {}

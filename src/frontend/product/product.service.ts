@@ -7,17 +7,16 @@ import UpdatePostDto from './dto/UpdateProductDto.dto';
 
 @Injectable()
 export class ProductService {
-    @InjectRepository(ProductEntity)
-    private productRepository: Repository<ProductEntity>
+  @InjectRepository(ProductEntity)
+  private productRepository: Repository<ProductEntity>;
 
-    
-    getListProducts() {
+  getListProducts() {
     return this.productRepository.find();
   }
 
   async getPostById(id: number) {
     const post = await this.productRepository.findOne({
-        where: {id}
+      where: { id },
     });
     if (post) {
       return post;
@@ -34,10 +33,10 @@ export class ProductService {
   async updatePost(id: number, post: UpdatePostDto) {
     await this.productRepository.update(id, post);
     const updatedPost = await this.productRepository.findOne({
-        where: {id}
+      where: { id },
     });
     if (updatedPost) {
-      return updatedPost
+      return updatedPost;
     }
     throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
   }
