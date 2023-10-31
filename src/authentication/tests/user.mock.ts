@@ -9,8 +9,8 @@ const mockedUser: User = {
     id: 1,
     street: 'streetName',
     city: 'cityName',
-    country: 'countryName'
-  }
-}
+    country: 'countryName',
+  },
+};
 
 export default mockedUser;

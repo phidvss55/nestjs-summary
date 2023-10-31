@@ -26,7 +26,7 @@ import { UserService } from '../user/user.service';
 export class AuthenticationController {
   constructor(
     private readonly authenticationService: AuthenticationService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {}
 
   @Post('register')
@@ -40,11 +40,10 @@ export class AuthenticationController {
   // async logIn(@Req() request: RequestWithUser, @Res() response: Response) {
   async logIn(@Req() request: RequestWithUser) {
     const { user } = request;
-    const accessTokenCookie  = this.authenticationService.getCookieWithJwtAccessToken(user.id);
-    const {
-      cookie: refreshTokenCookie,
-      token: refreshToken
-    } = this.authenticationService.getCookieWithJwtRefreshToken(user.id);
+    const accessTokenCookie = this.authenticationService.getCookieWithJwtAccessToken(user.id);
+    const { cookie: refreshTokenCookie, token: refreshToken } = this.authenticationService.getCookieWithJwtRefreshToken(
+      user.id,
+    );
 
     await this.userService.setCurrentRefreshToken(refreshToken, user.id);
 
@@ -76,10 +75,9 @@ export class AuthenticationController {
   @UseGuards(JwtRefreshToken)
   @Get('refresh')
   refresh(@Req() request: RequestWithUser) {
-    const accessTokenCookie  = this.authenticationService.getCookieWithJwtAccessToken(request.user?.id)
+    const accessTokenCookie = this.authenticationService.getCookieWithJwtAccessToken(request.user?.id);
 
-    request.res.setHeader('Set-Cookie', accessTokenCookie)
-    return request.user
+    request.res.setHeader('Set-Cookie', accessTokenCookie);
+    return request.user;
   }
-
 }

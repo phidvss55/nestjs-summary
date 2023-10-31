@@ -1,11 +1,10 @@
 const mockedConfigService = {
   get(key: string) {
-    switch(key) {
+    switch (key) {
       case 'JWT_EXPIRATION_TIME':
-        return 60 * 60
+        return 60 * 60;
     }
-  }
-
-}
+  },
+};
 
 export default mockedConfigService;

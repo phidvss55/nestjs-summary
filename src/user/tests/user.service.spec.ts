@@ -15,15 +15,14 @@ describe('The UsersService', () => {
         {
           provide: getRepositoryToken(User),
           useValue: {
-            findOne
-          }
-        }
+            findOne,
+          },
+        },
       ],
-    })
-    .compile();
+    }).compile();
 
     usersService = await module.get(UsersService);
-  })
+  });
 
   describe('When getting a user by email', () => {
     describe('and the user is matched', () => {
@@ -31,21 +30,21 @@ describe('The UsersService', () => {
       beforeEach(() => {
         user = new User();
         findOne.mockReturnValue(Promise.resolve(user));
-      })
+      });
 
       it('should return the user', async () => {
         const fetchedUser = await usersService.getByEmail('test@test.com');
         expect(fetchedUser).toEqual(user);
-      })
-    })
+      });
+    });
 
     describe('and the user is not matched', () => {
       beforeEach(() => {
         findOne.mockReturnValue(undefined);
-      })
+      });
       it('should throw an error', async () => {
         await expect(usersService.getByEmail('usera123@gmail.com')).rejects.toThrow();
-      })
-    })
-  })
+      });
+    });
+  });
 });

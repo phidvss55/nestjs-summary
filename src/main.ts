@@ -1,27 +1,17 @@
-import { NestFactory, Reflector } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-//import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import ExcludeNullInterceptor from './utils/excludeNull.interceptor';
-//import { ConfigService } from '@nestjs/config';
-//import { config } from 'aws-sdk';
+import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
 declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // Inject exception filter
-  // const { httpAdapter } = app.get(HttpAdapterHost);
-  // app.useGlobalFilters(new ExceptionsLoggerFilter(httpAdapter));
-
-  // S3 Config
-  // const configService = app.get(ConfigService);
-  // config.update({
-  //   accessKeyId: configService.get('AWS_ACCESS_KEY_ID'),
-  //   secretAccessKey: configService.get('AWS_SECRET_ACCESS_KEY'),
-  //   region: configService.get('AWS_REGION'),
-  // });
+  const { httpAdapter } = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new ExceptionsLoggerFilter(httpAdapter));
 
   // Inject validation
   app.useGlobalPipes(new ValidationPipe());
@@ -42,8 +32,8 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-
-  await app.listen(3000);
+  const PORT = process.env.PORT;
+  await app.listen(PORT);
 
   if (module.hot) {
     module.hot.accept();

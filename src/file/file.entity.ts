@@ -1,9 +1,9 @@
-import { PrimaryColumn, Column, Entity } from "typeorm";
+import { PrimaryColumn, Column, Entity } from 'typeorm';
 
 @Entity()
 export class File {
   @PrimaryColumn()
-  public id: number
+  public id: number;
 
   @Column()
   public url: string;

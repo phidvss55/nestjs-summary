@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { DatbaseService } from './database.service';
-// import Post from '../post/entities/post.entity';
-// import User from '../user/entities/user.entity';
 
 @Module({
   imports: [
@@ -23,6 +20,5 @@ import { DatbaseService } from './database.service';
       }),
     }),
   ],
-  exports: [DatbaseService],
 })
 export class DatabaseModule {}

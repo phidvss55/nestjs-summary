@@ -7,11 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   controllers: [FileController],
-  imports: [
-    TypeOrmModule.forFeature([File]),
-    ConfigModule
-  ],
+  imports: [TypeOrmModule.forFeature([File]), ConfigModule],
   providers: [FileService],
-  exports: [FileService]
+  exports: [FileService],
 })
 export class FileModule {}

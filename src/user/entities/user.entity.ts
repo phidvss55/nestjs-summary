@@ -1,8 +1,8 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn, OneToMany } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import Address from './address.entity';
-import Post from "../../post/entities/post.entity";
-import File from "src/file/file.entity";
+import Post from '../../post/entities/post.entity';
+import File from 'src/file/file.entity';
 
 @Entity('users')
 class User {
@@ -30,17 +30,14 @@ class User {
   public posts?: Post[];
 
   @JoinColumn()
-  @OneToOne(
-    () => File, 
-    {
-      eager: true, 
-      nullable: true
-    }
-  )
-  public avatar?: File
+  @OneToOne(() => File, {
+    eager: true,
+    nullable: true,
+  })
+  public avatar?: File;
 
   @Column({
-    nullable: true
+    nullable: true,
   })
   @Exclude()
   public currentHashedRefreshToken?: string;
