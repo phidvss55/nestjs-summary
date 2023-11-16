@@ -1,11 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './modules/users/users.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { JwtAuthGuard } from './modules/auth/guards/jwtAuth.guard';
-import { APP_GUARD } from '@nestjs/core';
 import * as Joi from '@hapi/joi';
-import { DatabaseModule } from './database/database.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -17,19 +13,11 @@ import { DatabaseModule } from './database/database.module';
         POSTGRES_PASSWORD: Joi.string().required(),
         POSTGRES_DB: Joi.string().required(),
         PORT: Joi.number(),
+        DATABASE_SYNC: Joi.boolean().default(false),
       }),
     }),
-    /*DatabaseModule,
-    ConfigModule.forRoot(),
-    AuthModule,
-    UsersModule,*/
+    UsersModule,
   ],
   controllers: [],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
-  ],
 })
 export class AppModule {}

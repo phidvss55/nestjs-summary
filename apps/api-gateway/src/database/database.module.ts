@@ -16,7 +16,7 @@ import DatabaseLogger from './database.logger';
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: false,
+        synchronize: configService.get('DATABASE_SYNC'),
         logger: new DatabaseLogger(),
       }),
     }),

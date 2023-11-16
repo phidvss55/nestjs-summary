@@ -6,7 +6,7 @@ networks:
 
 services:
   nestjs_learning:
-    container_name: nestjs-learning
+    container_name: api-gateway
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -20,4 +20,4 @@ services:
     networks:
       - om3-network
     env_file:
-    - ./.env
+      - ./.env

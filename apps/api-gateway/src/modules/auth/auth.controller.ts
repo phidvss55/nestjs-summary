@@ -7,8 +7,8 @@ import { JwtAuthGuard } from './guards/jwtAuth.guard';
 import { AuthDto } from './dto/auth.dto';
 import { Tokens, TokensSchema } from './types/tokens.type';
 import { Request } from 'express';
-import { Public } from 'src/common/decorators/public.decorator';
 import { JwtRefreshAuthGuard } from './guards/jwtAuthRefresh.guard';
+import { Public } from '../../common/decorators/public.decorator';
 
 @Controller('auth')
 @ApiTags('Authentication')
