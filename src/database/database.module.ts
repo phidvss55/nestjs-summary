@@ -1,24 +1,21 @@
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import DatabaseLogger from './database.logger';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get('POSTGRES_HOST'),
-        port: configService.get('POSTGRES_PORT'),
-        username: configService.get('POSTGRES_USER'),
-        password: configService.get('POSTGRES_PASSWORD'),
-        database: configService.get('POSTGRES_DB'),
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: false,
-        logger: new DatabaseLogger(),
+        type: 'postgres',
+        host: configService.getOrThrow('DATABASE_HOST'),
+        port: configService.getOrThrow('DATABASE_PORT'),
+        database: configService.getOrThrow('DATABASE_DATABASE'),
+        username: configService.getOrThrow('DATABASE_USERNAME'),
+        password: configService.getOrThrow('DATABASE_PASSWORD'),
+        autoLoadEntities: true,
+        synchronize: configService.getOrThrow('DATABASE_SYNCHRONIZE'),
       }),
+      inject: [ConfigService],
     }),
   ],
 })

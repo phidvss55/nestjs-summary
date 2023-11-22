@@ -1,18 +1,28 @@
-#! /bin/sh
-FROM node:latest
+FROM node:16-buster
+
+ARG GITLAB_ACCESS_TOKEN
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json package-lock.json /app/
+# COPY .npmrc /app/.npmrc  
 
-RUN npm install
+RUN npm install && \
+    rm -rf /tmp/* /var/tmp/*
 
-COPY . .
+# COPY ./docker-utils/entrypoint/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY ./.docker/run.sh /usr/local/bin/docker-run.sh
+
+COPY . /app
 
 RUN npm run build
 
-EXPOSE 5000
+EXPOSE 3000
 
-COPY ./.env.example ./.env
+USER node
 
-CMD ["npm", "run", "start:dev"]
+ENV TYPEORM_MIGRATION=ENABLE
+
+ENV NPM_INSTALL=DISABLE
+
+CMD npm run start:prod

@@ -5,8 +5,8 @@ networks:
     driver: bridge
 
 services:
-  nestjs_learning:
-    container_name: nestjs-learning
+  node_nestjs:
+    container_name: nestjs-learner
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -20,4 +20,4 @@ services:
     networks:
       - om3-network
     env_file:
-    - ./.env
+      - ./.env
