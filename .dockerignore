@@ -1,10 +1,22 @@
-node_modules
 npm-debug.log
 Dockerfile*
 docker-compose*
-.dockerignore
-.git
-.gitignore
-README.md
 LICENSE
 .vscode
+
+# Versioning and metadata
+.git
+.gitignore
+.dockerignore
+
+# Build dependencies
+dist.do
+node_modules
+
+# Environment (contains sensitive data)
+*.env
+
+# Misc
+.eslintrc.js
+.prettierrc
+README.md
