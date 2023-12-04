@@ -1,4 +1,3 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import CategoryEntity from 'src/entities/category.entity';
 import { Repository } from 'typeorm';

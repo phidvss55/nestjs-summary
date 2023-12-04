@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { BackendModule } from './backend/backend.module';
 import { FrontendModule } from './frontend/frontend.module';
 import { DatabaseModule } from './database/database.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -14,14 +15,16 @@ import { DatabaseModule } from './database/database.module';
     DatabaseModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
-        MYSQL_HOST: Joi.string().required(),
-        MYSQL_PORT: Joi.number().required(),
-        MYSQL_USER: Joi.string().required(),
-        MYSQL_DB: Joi.string().required(),
-        MYSQL_PASSWORD: Joi.optional(),
+        DATABASE_HOST: Joi.string().required(),
+        DATABASE_PORT: Joi.number().required(),
+        DATABASE_USER: Joi.string().required(),
+        DATABASE_DB: Joi.string().required(),
+        DATABASE_PASSWORD: Joi.optional(),
         PORT: Joi.number(),
+        UPLOADED_FILES_DESTINATION: Joi.string().required(),
       }),
     }),
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

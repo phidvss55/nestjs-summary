@@ -1,18 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ResponseData } from 'src/utils/responseData';
 import { CategoryService } from './category.service';
 import CreateCategoryDto from './dto/createCategory.dto';
 import UpdateCategoryDto from './dto/updateCategory.dto';
-import { Request } from 'express';
 import { Paging } from 'src/utils/paging';
 
 @Controller('cms/category')
-@ApiTags('Category')
+@ApiTags('Backend/Category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
-  @Get()
+  @Get('lists')
   async getListAllCategories(@Query() query) {
     const paging = {
       page: query.page || 1,

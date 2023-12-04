@@ -17,7 +17,7 @@ export class ProductController {
     return this.productService.getListProducts();
   }
 
-  @Get(':id')
+  @Get('show/:id')
   show() {
     return this.productService.getListProducts();
   }
