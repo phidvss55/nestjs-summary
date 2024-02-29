@@ -1,5 +1,5 @@
-import { GetCurrrentUser } from './../../common/decorators/getCurrentUser.decorator';
-import { GetCurrrentUserId } from './../../common/decorators/getCurrentUserId.decorator';
+import { GetCurrrentUser } from '../../common/decorators/get-current-user.decorator';
+import { GetCurrrentUserId } from '../../common/decorators/get-current-user-id.decorator';
 import { Controller, Req, Post, Body, UseGuards, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -42,6 +42,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
   async profile(@Req() req: Request) {
+    console.log('req', req.user);
     return {
       data: req.user,
     };

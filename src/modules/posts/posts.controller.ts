@@ -3,6 +3,9 @@ import { PostsService } from './posts.service';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import CreatePostDto from './dto/createPost.dto';
 import UpdatePostDto from './dto/updatePost.dto';
+import { GetPostParams } from './dto/getPost.dto';
+import { Public } from 'src/common/decorators/public.decorator';
+import { InjectUserToParam } from 'src/common/decorators/inject-user.decorator';
 
 @ApiTags('Posts')
 @Controller('posts')
@@ -12,6 +15,15 @@ export class PostsController {
   @Get()
   getAllPosts() {
     return this.postsService.getAllPosts();
+  }
+
+  @Public()
+  @Get('get-post')
+  @InjectUserToParam()
+  getPostWithUser(@Param() params: GetPostParams): string {
+    // by pass eslint
+    console.log('params', params);
+    return 'Edit action';
   }
 
   @Get(':id')

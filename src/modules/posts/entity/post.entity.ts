@@ -10,6 +10,9 @@ class PostEntity {
 
   @Column()
   public content: string;
+
+  @Column({ type: 'jsonb', nullable: true })
+  public setting: any;
 }
 
 export default PostEntity;

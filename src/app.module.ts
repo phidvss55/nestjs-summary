@@ -6,6 +6,7 @@ import { JwtAuthGuard } from './modules/auth/guards/jwtAuth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import * as Joi from '@hapi/joi';
 import { DatabaseModule } from './database/database.module';
+import { PostsModule } from './modules/posts/posts.module';
 
 @Module({
   imports: [
@@ -19,10 +20,13 @@ import { DatabaseModule } from './database/database.module';
         PORT: Joi.number(),
       }),
     }),
-    /*DatabaseModule,
-    ConfigModule.forRoot(),
+    DatabaseModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     AuthModule,
-    UsersModule,*/
+    UsersModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [
