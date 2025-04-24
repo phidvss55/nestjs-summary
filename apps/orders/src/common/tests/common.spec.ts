@@ -1,4 +1,4 @@
-import { isPhoneNumber } from '../validations/validation';
+import { isPhoneNumber } from '../validations/helpers';
 
 const regexp = /[]/;
 

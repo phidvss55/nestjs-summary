@@ -37,8 +37,10 @@ class User {
     description: 'Refresh token of user',
     example: 'string',
   })
-  @Column()
-  public refresh_token: string;
+  @Column({
+    nullable: true,
+  })
+  public refresh_token?: string;
 }
 
 export default User;

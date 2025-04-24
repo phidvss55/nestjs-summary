@@ -3,3 +3,7 @@ export enum Role {
   USER = 'user',
   EMPLOYEE = 'employee',
 }
+
+interface DynamicObject<T = any> {
+  [key: string]: T;
+}
