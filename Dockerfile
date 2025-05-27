@@ -1,18 +1,15 @@
-#! /bin/sh
-FROM node:latest
+# production stage
+
+FROM node:20-alpine AS prod-stage
+
+COPY --from=build-stage /app/dist /app
+COPY --from=build-stage /app/package.json /app/package.json
 
 WORKDIR /app
 
-COPY package*.json ./
+RUN npm install --production
+RUN npm install -g pm2
 
-RUN npm install
+EXPOSE 3000
 
-COPY . .
-
-RUN npm run build
-
-EXPOSE 5000
-
-COPY ./.env.example ./.env
-
-CMD ["npm", "run", "start:dev"]
+CMD ['pm2-runtime', '/app/main.js']
