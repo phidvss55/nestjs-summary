@@ -27,6 +27,7 @@ export class UserController {
   @Post('logger')
   loggerTest(@Body() body: { message: string }) {
     console.log('Logger test called::', body);
+    this.logger.log(body.message);
   }
 
   @Post()

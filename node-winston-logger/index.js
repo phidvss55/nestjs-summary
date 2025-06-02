@@ -8,7 +8,7 @@ const logger = winston.createLogger({
     winston.format.label({ label: 'orderFunc | ' }),
     winston.format.timestamp(),
     // winston.format.json(),
-    winston.format.simple(),
+    winston.format.simple(), // have color
   ),
   transports: [
     new winston.transports.Console(),

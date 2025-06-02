@@ -1,2 +1,7 @@
-### health check
-GET http://localhost:3000
+### check logger
+POST http://localhost:3000/user/logger
+Content-Type:  application/json
+
+{
+  "message": "Hello, world!"
+}
