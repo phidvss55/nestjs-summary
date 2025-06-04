@@ -1,0 +1,38 @@
+services:
+  server1:
+    build: ./server
+    ports:
+      - '3001:3001'
+    environment:
+      - PORT=3001
+      - NAME="Server 1"
+
+  server2:
+    build: ./server
+    ports:
+      - '3002:3002'
+    environment:
+      - PORT=3002
+      - NAME="Server 2"
+
+  server3:
+    build: ./server
+    ports:
+      - '3003:3003'
+    environment:
+      - PORT=3003
+      - NAME="Server 3"
+
+  nginx:
+    image: nginx:latest
+    # build: ./nginx
+    ports:
+      - '8080:80'
+      - '443:443'
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/nginx.conf:ro # ro: read only
+      - ./nginx/certs:/etc/nginx/certs:ro # mounting the certificates
+    depends_on:
+      - server1
+      - server2
+      - server3
