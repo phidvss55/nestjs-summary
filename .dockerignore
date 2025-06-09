@@ -1,0 +1,12 @@
+.git
+node_modules
+
+node-winston-logger
+public
+
+
+*.md
+*.txt
+*.log
+!README.md
+.gitignore
